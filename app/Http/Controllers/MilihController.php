@@ -21,7 +21,6 @@ class MilihController extends Controller
             $calon = Calon::all();
             $calonProdi = calon_prodi::where('prodi', '=', $pemilih->prodi)->get();
             //ambil data nama prodi dari setiap calon
-            dd($calonProdi);
             $namaProdi = prodi::where('id', '=', $pemilih->prodi)->get('prodi');
             $validasi = DB::table('pemilihs')->select('pemilihs.flag')->where('pemilihs.nim','=',$pemilih->nim)->get();
             //dd($validasi);
