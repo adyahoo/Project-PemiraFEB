@@ -114,14 +114,9 @@
           @else
               <div class="row">
             <div class="col-md-8 ml-auto mr-auto text-center">
-              <form action="../vote/{{$calon->id}}" method="post">
-                     @csrf
-                     <input type="text" hidden name="pemilih" value="{{$pemilih->id}}">
-                   <button class="btn btn-danger btn-round" type="submit" style="width:75% !important"">
-                     <i class="material-icons">how_to_vote</i> Pilih Kandidat
-                   </button> 
-                </form>
-                
+              <button class="btn btn-danger btn-round" type="submit" style="width:75% !important" onclick="history.go(-1)">
+                Kembali Ke Menu Voting
+              </button>                
             </div>
           </div>
           @endif
