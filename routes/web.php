@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/','MilihController@index');
-Route::get('/kandidat/{id}','MilihController@kandidat');
+Route::get('/kandidat/{flag}/{id}','MilihController@kandidat');
 // Route::post('/vote/{id}','MilihController@vote')->name('voting');
 Route::post('/vote','MilihController@vote')->name('voting');
 Route::get('/quickcount','MilihController@hasil');

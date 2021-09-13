@@ -21,6 +21,7 @@ class MilihController extends Controller
             $calon = Calon::all();
             $calonProdi = calon_prodi::where('prodi', '=', $pemilih->prodi)->get();
             //ambil data nama prodi dari setiap calon
+            // dd($calonProdi);
             $namaProdi = prodi::where('id', '=', $pemilih->prodi)->get('prodi');
             $validasi = DB::table('pemilihs')->select('pemilihs.flag')->where('pemilihs.nim','=',$pemilih->nim)->get();
             //dd($validasi);
@@ -46,13 +47,19 @@ class MilihController extends Controller
         }
     }   
 
-    public function kandidat(Request $request,$id) {
+    public function kandidat(Request $request,$flag, $id) {
         if(!$request->session()->has('pemilih')){
             return redirect('/pemilih/login');
         }else{
             $pemilih = $request->session()->get('pemilih');
             $pemilihan = pemilihan::where('id_pemilih','=',$pemilih->id)->get();
-            $data = Calon::where('id','=',$id)->get();
+            
+            if($flag == 'bem'){
+                $data = Calon::where('id','=',$id)->get();
+            }else {
+                $data = calon_prodi::where('id','=',$id)->get();
+            }
+
             $calon = $data[0];
             return view('pemilih.kandidat',compact('calon','pemilih','pemilihan'));
         }
@@ -64,10 +71,15 @@ class MilihController extends Controller
         if(!$request->session()->has('pemilih')){
             return redirect('/pemilih/login');
         }else{
+            $message = [
+                'required' => 'Wajib Memilih Kandidat!',
+            ];
+
             $this->validate($request, [
-                'id_pemilih' => 'unique:pemilihans',
-                'id_pemilih' => 'unique:pemilihan_prodis',
-            ]);
+                'item_tab_bem' => 'required',
+                'item_tab_prodi' => 'required',
+            ],$message);
+            
             $pemilihan =  new pemilihan();
             $pemilihan->id_calon = $request->item_tab_bem;
             $pemilihan->id_pemilih = $pemilih->id;

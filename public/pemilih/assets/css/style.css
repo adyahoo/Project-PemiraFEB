@@ -30,6 +30,10 @@
     padding: 10px;
 }
 
+.title__error {
+    color: rgb(255, 1, 1);
+}
+
 .card-input {
     display: none;
 }
