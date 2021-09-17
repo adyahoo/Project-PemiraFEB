@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.kprm.app')
 @section('title')
     Hasil Pemilihan
 @endsection

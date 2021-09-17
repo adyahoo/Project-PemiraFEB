@@ -11,12 +11,12 @@ class CalonController extends Controller
     public function index()
     {
         $calon = Calon::all();
-        return view('admin.calon.index',compact('calon'));
+        return view('admin.kprm.calon.index',compact('calon'));
     }
 
     public function create()
     {
-        return view ('admin.calon.add');
+        return view ('admin.kprm.calon.add');
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class CalonController extends Controller
     public function edit(Calon $calon)
     {
         $file = $calon->foto;
-        return view('admin.calon.edit',compact('calon','file'));
+        return view('admin.kprm.calon.edit',compact('calon','file'));
     }
 
     public function update(Request $request, Calon $calon)

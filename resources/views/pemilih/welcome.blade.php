@@ -43,7 +43,7 @@
                         </div>
                         @endif
                     </div>
-                <h1 class="title text-center" id="demo">Pemilihan<br>Gubernur dan Wakil Gubernur BEM FISIP UNUD 2020</h1>
+                <h1 class="title text-center" id="demo">KPRM<br>Fakultas Ekonomi dan Bisnis UNUD 2021</h1>
 				<div style="align-content: center;" class="login100-pic center">
 					<img src={{asset('login/images/img-02.png')}} alt="IMG">
                 </div>

@@ -24,7 +24,7 @@ Route::post('/vote','MilihController@vote')->name('voting');
 Route::get('/quickcount','MilihController@hasil');
 
 Route::get('/admin/login', function () {
-    return view('admin.login');
+    return view('admin.kprm.login');
 });
 
 Route::get('/pemilih/login', 'MilihController@login');

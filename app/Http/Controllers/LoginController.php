@@ -18,9 +18,45 @@ class LoginController extends Controller{
             ->where('password','=',$password)
             ->first();
                 if($data){
-                    $request->session()->put('user',$data);
-                    $get = $request->session()->get('user'); 
-                    return redirect()->route('admin.home');   
+                    switch ($data['role']) {
+                        case "KPRM":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "BEM":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "DPM":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "AK":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "MJ":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "EP":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        case "HIMADI":
+                            $request->session()->put('user',$data);
+                            $get = $request->session()->get('user'); 
+                            return redirect()->route('admin.home');
+                            break;
+                        default:
+                        return redirect('/admin/login')->with('alert','Anda tidak punya akses!');
+                    }   
                 }else{
                     return redirect('/admin/login')->with('alert','password atau username salah');    
                 }

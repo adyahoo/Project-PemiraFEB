@@ -29,7 +29,7 @@ class AdminController extends Controller{
             ->limit(5)
             ->get();
             $data_calon = DB::table('calons')->limit(5)->get();
-            return view('admin.home',compact('count_pemilih','count_pemilihan','count_calon','data_pem','data_calon'));
+            return view('admin.kprm.home',compact('count_pemilih','count_pemilihan','count_calon','data_pem','data_calon'));
         }
     }
 
@@ -41,7 +41,7 @@ class AdminController extends Controller{
             $prodis=prodi::get();
             $angkatans=angkatan::get();
             $setting = setting_waktu::all();
-            return view('admin.setting',compact('setting','prodis','angkatans'));
+            return view('admin.kprm.setting',compact('setting','prodis','angkatans'));
         }
     }
 
@@ -63,7 +63,7 @@ class AdminController extends Controller{
         $count_pemilihan = count($sql);
         $hasil = json_encode($data);
         $calons = json_encode($calon);
-        return view('admin.chart',compact('hasil','calons','data_suara','count_pemilihan'));
+        return view('admin.kprm.chart',compact('hasil','calons','data_suara','count_pemilihan'));
     }
 
     public function edit_setting(setting_waktu $setting,$id)
@@ -71,7 +71,7 @@ class AdminController extends Controller{
         $data = DB::table('setting_waktus')->where('id','=',$id)->limit(1)->get();
         $setting = $data[0];
         
-        return view('admin.setting_edit',compact('setting'));
+        return view('admin.kprm.setting_edit',compact('setting'));
     }
 
     /**
@@ -99,17 +99,19 @@ class AdminController extends Controller{
             ->leftjoin('angkatans', 'pemilihs.angkatan', '=', 'angkatans.id')
             ->leftjoin('prodis', 'pemilihs.prodi', '=', 'prodis.id')
             ->paginate(15);
-        return view('admin.pemilihan',compact('pemilih'));
+        return view('admin.kprm.pemilihan',compact('pemilih'));
     }
 
     public function pdf_pemilih()
     {
+        $pemilihis = pemilihan::select('id_pemilih')->get();
         $pemilih = DB::table('pemilihans')
         ->rightJoin('pemilihs','pemilihans.id_pemilih','=','pemilihs.id')
         ->leftjoin('angkatans', 'pemilihs.angkatan', '=', 'angkatans.id')
         ->leftjoin('prodis', 'pemilihs.prodi', '=', 'prodis.id')
-        ->get();
-        $pdf = PDF::loadview('admin.pemilih_pdf',compact('pemilih'));
+        ->whereNotIn('pemilihs.id', $pemilihis)
+        ->get(); 
+        $pdf = PDF::loadview('admin.kprm.pemilih_pdf',compact('pemilih'));
         return $pdf->stream();
     }
 }

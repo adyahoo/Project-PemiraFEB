@@ -1,8 +1,8 @@
-@extends('admin.app')
+@extends('admin.kprm.app')
 @section('title')
-    Rekap Pemilihan
+    Setting
 @endsection
-@section('nav-pemilihan')
+@section('nav-pengaturan')
     active
 @endsection
 @section('content')
@@ -11,14 +11,14 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-info">
-                    <i class="material-icons">content_paste</i>
-                  <h4 class="card-title ">  Data Pemilih</h4>
+                <div class="card-header card-header-warning">
+                    <i class="material-icons">settings_applications</i>
+                  <h4 class="card-title ">  Pengaturan Waktu Pemilihan</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     
-                   @if ($pemilih->isEmpty())
+                   @if ($setting->isEmpty())
                         <div class="row">
                             <div class="col-md-12">
                               <div class="alert alert-danger">
@@ -27,60 +27,45 @@
                             </div>
                         </div>
                   @else
-                      <button class="btn btn-info btn-round" onclick="location.href='/admin/pemilihan_pdf'">
-                     <i class="material-icons">content_paste</i>  Print Data
-                   </button> 
                     <table class="table">
-                      <thead class=" text-info">
+                      <thead class=" text-warning">
                         <th>
                           No.
                         </th>
                         <th>
-                          Nama
+                          Waktu Awal
                         </th>
                         <th>
-                          Prodi
+                          Waktu Akhir
                         </th>
                         <th>
-                          Angkatan
-                        </th>
-                        <th>
-                          Status
+                          Aksi
                         </th>
                       </thead>
                       <tbody>
                         
-                            @foreach ($pemilih as $i)
+                            @foreach ($setting as $i)
                               <tr>
                             <td>
                               {{$loop->iteration}}
                             </td>
                             <td>
-                              {{$i->nama}}
+                              {{$i->waktu_awal}}
                             </td>
                             <td>
-                              {{$i->prodi}}
+                              {{$i->waktu_akhir}}
                             </td>
-                            <td>
-                              {{$i->angkatan}}
-                            </td>
-                            
                             <td class="td-actions text-left">
-                                @if ($i->id_calon==null)
-                                    <p class="text-danger">Belum Memilih</p>
-                                @else
-                                     <p class="text-success">Sudah Memilih</p>
-                                @endif
-                                
+                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm" onclick="location.href='../admin/setting/edit/{{$i->id}}'">
+                                  <i class="material-icons">edit</i>
+                                </button>
                               </td>
                           </tr>
                           @endforeach
                       </tbody>
                     </table>
-                     {{$pemilih->links()}}
                     @endif
                   </div>
-                  
                 </div>
               </div>
             </div>

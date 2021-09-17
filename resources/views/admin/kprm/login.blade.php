@@ -28,7 +28,7 @@
 				
 			<div class="wrap-login100">
 				
-				<div class="login100-pic js-tilt" data-tilt>
+				<div class="login100-pic">
 					<img src={{asset('login/images/img-02.png')}} alt="IMG">
 				</div>
 
@@ -65,7 +65,7 @@
 					<div class="col-12">
 						@if(\Session::has('alert'))
 						<div class="alert alert-danger" style="display:block;float:left">
-							<div>{{Session::get('alert')}} test</div>
+							<div>{{Session::get('alert')}}</div>
 						</div>
           	 	 	@endif
 					</div>

@@ -12,21 +12,29 @@ use App\angkatan;
 
 class PemilihController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {   
-        $pemilih = DB::table('pemilihs')
-        ->leftjoin('angkatans', 'pemilihs.angkatan', '=', 'angkatans.id')
-        ->leftjoin('prodis', 'pemilihs.prodi', '=', 'prodis.id')
-        ->select('pemilihs.*', 'prodis.prodi as prodi','angkatans.angkatan as angkatan')
-        ->orderBy('flag', 'asc')->paginate(15);
-        return view('admin.pemilih.index',compact('pemilih'));
+        if(!$request->session()->has('user')){
+            return redirect('/admin/login');
+        }else{
+            $pemilih = DB::table('pemilihs')
+            ->leftjoin('angkatans', 'pemilihs.angkatan', '=', 'angkatans.id')
+            ->leftjoin('prodis', 'pemilihs.prodi', '=', 'prodis.id')
+            ->select('pemilihs.*', 'prodis.prodi as prodi','angkatans.angkatan as angkatan')
+            ->orderBy('flag', 'asc')->paginate(15);
+            return view('admin.kprm.pemilih.index',compact('pemilih'));
+        }
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $prodis=prodi::get();
-        $angkatans=angkatan::get();
-        return view('admin.pemilih.add',compact('prodis','angkatans'));
+        if(!$request->session()->has('user')){
+            return redirect('/admin/login');
+        }else{
+            $prodis=prodi::get();
+            $angkatans=angkatan::get();
+            return view('admin.kprm.pemilih.add',compact('prodis','angkatans'));
+        }
     }
 
     public function store(Request $request)
@@ -59,11 +67,15 @@ class PemilihController extends Controller
         return redirect('admin/pemilih/');
     }
 
-    public function edit(pemilih $pemilih)
+    public function edit(Request $request, pemilih $pemilih)
     {
-        $prodis=prodi::get();
-        $angkatans=angkatan::get();
-        return view('admin.pemilih.edit',compact('pemilih','prodis','angkatans'));
+        if(!$request->session()->has('user')){
+            return redirect('/admin/login');
+        }else{
+            $prodis=prodi::get();
+            $angkatans=angkatan::get();
+            return view('admin.kprm.pemilih.edit',compact('pemilih','prodis','angkatans'));
+        }
     }
 
     public function update(Request $request, pemilih $pemilih)

@@ -26,7 +26,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
+				<div class="login100-pic">
 					<img src={{asset('login/images/img-02.png')}} alt="IMG">
 				</div>
 
